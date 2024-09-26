@@ -1,26 +1,26 @@
 import {Field} from './field';
-import {Generation} from './gen';
-import {Move} from './move';
-import {Pokemon} from './pokemon';
-import {Result} from './result';
+import type {Generation} from './data/interface';
+import type {Move} from './move';
+import type {Pokemon} from './pokemon';
+import type {Result} from './result';
 
-import {calculateRBY} from './mechanics/gen1';
-import {calculateGSC} from './mechanics/gen2';
+import {calculateRBYGSC} from './mechanics/gen12';
 import {calculateADV} from './mechanics/gen3';
 import {calculateDPP} from './mechanics/gen4';
-import {calculateBW} from './mechanics/gen5';
-import {calculateXY} from './mechanics/gen6';
-import {calculateSM} from './mechanics/gen7';
+import {calculateBWXY} from './mechanics/gen56';
+import {calculateSMSSSV} from './mechanics/gen789';
 
 const MECHANICS = [
   () => {},
-  calculateRBY,
-  calculateGSC,
+  calculateRBYGSC,
+  calculateRBYGSC,
   calculateADV,
   calculateDPP,
-  calculateBW,
-  calculateXY,
-  calculateSM,
+  calculateBWXY,
+  calculateBWXY,
+  calculateSMSSSV,
+  calculateSMSSSV,
+  calculateSMSSSV,
 ];
 
 export function calculate(
@@ -28,9 +28,10 @@ export function calculate(
   attacker: Pokemon,
   defender: Pokemon,
   move: Move,
-  field?: Field
+  field?: Field,
 ) {
-  return MECHANICS[gen](
+  return MECHANICS[gen.num](
+    gen,
     attacker.clone(),
     defender.clone(),
     move.clone(),
